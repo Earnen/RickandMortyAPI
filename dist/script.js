@@ -17,9 +17,9 @@ function printEpTitles(url) {
         const JSONdata = yield data.json();
         const episodes = JSONdata.results;
         episodes.forEach((episode) => {
-            const liEpisode = document.createElement("li");
-            liEpisode.textContent = episode.name;
-            epListContainer.appendChild(liEpisode);
+            epListContainer.insertAdjacentHTML("beforeend", `<li id="${episode.id}" epUrl="${episode.url}">${episode.name}</li>`);
+            const chargeCharacter = document.getElementById(`${episode.id}`);
+            chargeCharacter.addEventListener("click", dispEpContent);
         });
         if (JSONdata.info.next) {
             epBtn.addEventListener("click", () => {
@@ -29,6 +29,30 @@ function printEpTitles(url) {
         else {
             epBtn.remove();
         }
+    });
+}
+function dispEpContent(event) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const target = event.target;
+        const urlEp = target.getAttribute("epUrl");
+        const data = yield fetch(urlEp);
+        const epData = yield data.json();
+        const displEpInfo = `<p>${epData.name}</p>
+    <p>${epData.air_date}</p>
+    <p>${epData.episode}</p>`;
+        const sectContainer = document.getElementById("contArea");
+        sectContainer.innerHTML = displEpInfo;
+        const charsInEp = epData.characters;
+        charsInEp.forEach((charUrl) => __awaiter(this, void 0, void 0, function* () {
+            const data = yield fetch(charUrl);
+            const charInfo = yield data.json();
+            const displCharInfo = `<p>${charInfo.name}</p>
+        <p>${charInfo.status}</p>
+        <p>${charInfo.species}</p>
+        <p>${charInfo.gender}</p>
+        <img src="${charInfo.image}">`;
+            sectContainer.insertAdjacentHTML("beforeend", displCharInfo);
+        }));
     });
 }
 export {};
