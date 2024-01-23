@@ -4,16 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rick and Morty</title>
+    <link rel="icon" href="./assets/RickMortyFavicon 16.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/css/colours.css">
+    <link rel="stylesheet" href="/css/style.css"> 
 </head>
 <body>
-    <header>
-        <h1>Rick and Morty</h1>
+    <header class="main-header">
+        <img class="main-header__img" src="/assets/RickandMortyTitle.png" alt="Rick and Morty">
+        <h1 class="main-header__title">A Rick and Morty website using an API</h1>
     </header>
     <main>
-        <aside>
+        <aside class="side-bar">
             <ul id="episodeList">
             </ul>
-            <button id="epBtn">More episodes</button>
+            <button id="epBtn">Load more episodes</button>
         </aside>
         <section id="contArea">
 

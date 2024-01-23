@@ -37,20 +37,22 @@ function dispEpContent(event) {
         const urlEp = target.getAttribute("epUrl");
         const data = yield fetch(urlEp);
         const epData = yield data.json();
-        const displEpInfo = `<p>${epData.name}</p>
-    <p>${epData.air_date}</p>
-    <p>${epData.episode}</p>`;
+        const displEpInfo = `<h3 class="ep-title">${epData.name}</h3>
+    <p>${epData.episode}</p>
+    <p>Aired: ${epData.air_date}</p>`;
         const sectContainer = document.getElementById("contArea");
         sectContainer.innerHTML = displEpInfo;
         const charsInEp = epData.characters;
         charsInEp.forEach((charUrl) => __awaiter(this, void 0, void 0, function* () {
             const data = yield fetch(charUrl);
             const charInfo = yield data.json();
-            const displCharInfo = `<p>${charInfo.name}</p>
-        <p>${charInfo.status}</p>
-        <p>${charInfo.species}</p>
-        <p>${charInfo.gender}</p>
-        <img src="${charInfo.image}">`;
+            const displCharInfo = `<div class="char-card">
+        <img class="char-card__img" src="${charInfo.image}">
+        <h4 class="char-card__title">${charInfo.name}</h4>
+        <p>Status: ${charInfo.status}</p>
+        <p>Species: ${charInfo.species}</p>
+        <p>Gender: ${charInfo.gender}</p>
+        </div>`;
             sectContainer.insertAdjacentHTML("beforeend", displCharInfo);
         }));
     });

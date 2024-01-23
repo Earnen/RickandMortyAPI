@@ -33,25 +33,27 @@ async function printEpTitles(url:string) {
 //En esta función 
 async function dispEpContent(event:MouseEvent) {
     const target = event.target as HTMLUListElement;
-    const urlEp = target.getAttribute("epUrl"/*atributo que haya puesto en cada elemento*/)!;
+    const urlEp = target.getAttribute("epUrl")!;
     const data = await fetch(urlEp);
     const epData:Episode = await data.json();
     const displEpInfo = 
-    `<p>${epData.name}</p>
-    <p>${epData.air_date}</p>
-    <p>${epData.episode}</p>`;
+    `<h3 class="ep-title">${epData.name}</h3>
+    <p>${epData.episode}</p>
+    <p>Aired: ${epData.air_date}</p>`;
     const sectContainer = document.getElementById("contArea") as HTMLDivElement;
     sectContainer.innerHTML = displEpInfo;
-    const charsInEp = epData.characters; /*es un array de urls de cada pj*/
-    charsInEp.forEach(async charUrl/*es una url de cada pj*/ => {
+    const charsInEp = epData.characters; 
+    charsInEp.forEach(async charUrl => {
         const data = await fetch(charUrl);
         const charInfo: Character = await data.json();
         const displCharInfo = 
-        `<p>${charInfo.name}</p>
-        <p>${charInfo.status}</p>
-        <p>${charInfo.species}</p>
-        <p>${charInfo.gender}</p>
-        <img src="${charInfo.image}">`;
+        `<div class="char-card">
+        <img class="char-card__img" src="${charInfo.image}">
+        <h4 class="char-card__title">${charInfo.name}</h4>
+        <p>Status: ${charInfo.status}</p>
+        <p>Species: ${charInfo.species}</p>
+        <p>Gender: ${charInfo.gender}</p>
+        </div>`;
         sectContainer.insertAdjacentHTML("beforeend", displCharInfo);
     })
 }
