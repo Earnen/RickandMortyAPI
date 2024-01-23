@@ -17,7 +17,7 @@ function printEpTitles(url) {
         const JSONdata = yield data.json();
         const episodes = JSONdata.results;
         episodes.forEach((episode) => {
-            epListContainer.insertAdjacentHTML("beforeend", `<li id="${episode.id}" epUrl="${episode.url}">${episode.name}</li>`);
+            epListContainer.insertAdjacentHTML("beforeend", `<li class="side-bar__item" id="${episode.id}" epUrl="${episode.url}">${episode.name}</li>`);
             const chargeCharacter = document.getElementById(`${episode.id}`);
             chargeCharacter.addEventListener("click", dispEpContent);
         });
@@ -37,9 +37,11 @@ function dispEpContent(event) {
         const urlEp = target.getAttribute("epUrl");
         const data = yield fetch(urlEp);
         const epData = yield data.json();
-        const displEpInfo = `<h3 class="ep-title">${epData.name}</h3>
+        const displEpInfo = `<div class="ep-info">
+    <h3 class="ep-info__title">${epData.name}</h3>
     <p>${epData.episode}</p>
-    <p>Aired: ${epData.air_date}</p>`;
+    <p>Aired: ${epData.air_date}</p>
+    </div>`;
         const sectContainer = document.getElementById("contArea");
         sectContainer.innerHTML = displEpInfo;
         const charsInEp = epData.characters;

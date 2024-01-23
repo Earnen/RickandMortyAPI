@@ -13,7 +13,7 @@ async function printEpTitles(url:string) {
 
     episodes.forEach((episode: Episode) => {
        epListContainer.insertAdjacentHTML("beforeend",
-       `<li id="${episode.id}" epUrl="${episode.url}">${episode.name}</li>`);
+       `<li class="side-bar__item" id="${episode.id}" epUrl="${episode.url}">${episode.name}</li>`);
        const chargeCharacter = document.getElementById(`${episode.id}`) as HTMLLIElement;
        chargeCharacter.addEventListener("click", dispEpContent);
     });
@@ -30,16 +30,17 @@ async function printEpTitles(url:string) {
     }
 }
 
-//En esta función 
 async function dispEpContent(event:MouseEvent) {
     const target = event.target as HTMLUListElement;
     const urlEp = target.getAttribute("epUrl")!;
     const data = await fetch(urlEp);
     const epData:Episode = await data.json();
     const displEpInfo = 
-    `<h3 class="ep-title">${epData.name}</h3>
+    `<div class="ep-info">
+    <h3 class="ep-info__title">${epData.name}</h3>
     <p>${epData.episode}</p>
-    <p>Aired: ${epData.air_date}</p>`;
+    <p>Aired: ${epData.air_date}</p>
+    </div>`;
     const sectContainer = document.getElementById("contArea") as HTMLDivElement;
     sectContainer.innerHTML = displEpInfo;
     const charsInEp = epData.characters; 
